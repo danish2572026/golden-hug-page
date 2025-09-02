@@ -12,15 +12,19 @@ import heroImage2 from "@/assets/hero-senior2.jpg";
 interface HeroSectionProps {
   isLoggedIn?: boolean;
   hasOrderedWatch?: boolean;
+  hasActivePlan?: boolean;
   onGetStarted?: () => void;
   onOrderStatus?: () => void;
+  onGoToDashboard?: () => void;
 }
 
 export function HeroSection({ 
   isLoggedIn = false, 
   hasOrderedWatch = false, 
+  hasActivePlan = false,
   onGetStarted, 
-  onOrderStatus 
+  onOrderStatus,
+  onGoToDashboard
 }: HeroSectionProps) {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -112,6 +116,83 @@ export function HeroSection({
                 <>
                   <Button onClick={onGetStarted} variant="hero" size="lg" className="text-lg">
                     Get Started Today
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                  <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="lg" className="text-lg text-gray-800">
+                        Contact Us
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Contact Us</DialogTitle>
+                      </DialogHeader>
+                      {!isSubmitted ? (
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          <div>
+                            <Label htmlFor="name">Full Name *</Label>
+                            <Input
+                              id="name"
+                              value={formData.name}
+                              onChange={(e) => handleInputChange('name', e.target.value)}
+                              placeholder="Enter your full name"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="email">Email Address *</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              value={formData.email}
+                              onChange={(e) => handleInputChange('email', e.target.value)}
+                              placeholder="Enter your email"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="phone">Phone Number</Label>
+                            <Input
+                              id="phone"
+                              type="tel"
+                              value={formData.phone}
+                              onChange={(e) => handleInputChange('phone', e.target.value)}
+                              placeholder="Enter your phone number"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="message">Message *</Label>
+                            <Textarea
+                              id="message"
+                              value={formData.message}
+                              onChange={(e) => handleInputChange('message', e.target.value)}
+                              placeholder="Tell us how we can help you..."
+                              rows={4}
+                              required
+                            />
+                          </div>
+                          <Button type="submit" className="w-full">
+                            Send Message
+                          </Button>
+                        </form>
+                      ) : (
+                        <div className="text-center py-8">
+                          <div className="text-green-600 text-lg font-semibold mb-2">
+                            Thank you for contacting us!
+                          </div>
+                          <p className="text-muted-foreground">
+                            We will contact you soon.
+                          </p>
+                        </div>
+                      )}
+                    </DialogContent>
+                  </Dialog>
+                </>
+              ) : hasActivePlan ? (
+                <>
+                  <Button onClick={onGoToDashboard} variant="hero" size="lg" className="text-lg">
+                    Go to Dashboard
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                   <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
