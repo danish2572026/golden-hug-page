@@ -2,52 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* SeniorCare Health Watch Design System - Warm, caring, accessible */
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 25% 15%;
+    --background: 210 17% 98%;
+    --foreground: 215 25% 27%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 201 85% 45%;
+    /* Caring blue primary - trustworthy and calming */
+    --primary: 210 100% 56%;
+    --primary-glow: 210 100% 70%;
     --primary-foreground: 0 0% 100%;
-    --primary-soft: 201 85% 95%;
 
-    --secondary: 160 25% 50%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-soft: 160 25% 95%;
+    /* Warm secondary - approachable and friendly */
+    --secondary: 25 95% 95%;
+    --secondary-foreground: 215 25% 27%;
 
-    --muted: 210 20% 95%;
-    --muted-foreground: 215 15% 45%;
+    /* Soft muted tones */
+    --muted: 210 17% 95%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 35 85% 65%;
-    --accent-foreground: 215 25% 15%;
-    --accent-soft: 35 85% 95%;
+    /* Gentle accent - health-focused green */
+    --accent: 150 60% 88%;
+    --accent-foreground: 150 100% 25%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    /* Emergency red - clear but not alarming */
+    --emergency: 0 75% 60%;
+    --emergency-foreground: 0 0% 100%;
 
-    --border: 210 20% 90%;
-    --input: 210 20% 95%;
-    --ring: 201 85% 45%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --trust: 160 25% 50%;
-    --trust-foreground: 0 0% 100%;
-    --care: 201 85% 45%;
-    --warmth: 35 85% 65%;
+    --border: 210 20% 92%;
+    --input: 210 20% 92%;
+    --ring: 210 100% 56%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
-    --shadow-soft: 0 4px 20px -2px hsl(var(--primary) / 0.1);
-    --shadow-card: 0 8px 32px -4px hsl(var(--primary) / 0.15);
+    /* Beautiful gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 56%), hsl(210 100% 70%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 17% 98%));
+    --gradient-feature: linear-gradient(135deg, hsl(150 60% 88%), hsl(150 40% 92%));
+    
+    /* Elegant shadows */
+    --shadow-soft: 0 4px 12px -2px hsl(210 100% 56% / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(215 25% 27% / 0.15);
+    --shadow-hero: 0 20px 60px -12px hsl(210 100% 56% / 0.25);
+
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.5rem;
 
