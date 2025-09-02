@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Heart, Phone } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
+import { useState } from "react";
 import heroImage1 from "@/assets/hero-senior1.png";
 import heroImage2 from "@/assets/hero-senior2.jpg";
 
@@ -16,6 +22,44 @@ export function HeroSection({
   onGetStarted, 
   onOrderStatus 
 }: HeroSectionProps) {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+    
+    setIsSubmitted(true);
+    
+    // Reset form after 3 seconds and close modal
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setIsContactOpen(false);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: ""
+      });
+    }, 3000);
+  };
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Full Background Image */}
@@ -70,9 +114,76 @@ export function HeroSection({
                     Get Started Today
                     <ArrowRight className="h-5 w-5" />
                   </Button>
-                  <Button variant="outline" size="lg" className="text-lg text-gray-800">
-                    Watch Demo
-                  </Button>
+                  <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="lg" className="text-lg text-gray-800">
+                        Contact Us
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Contact Us</DialogTitle>
+                      </DialogHeader>
+                      {!isSubmitted ? (
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          <div>
+                            <Label htmlFor="name">Full Name *</Label>
+                            <Input
+                              id="name"
+                              value={formData.name}
+                              onChange={(e) => handleInputChange('name', e.target.value)}
+                              placeholder="Enter your full name"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="email">Email Address *</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              value={formData.email}
+                              onChange={(e) => handleInputChange('email', e.target.value)}
+                              placeholder="Enter your email"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="phone">Phone Number</Label>
+                            <Input
+                              id="phone"
+                              type="tel"
+                              value={formData.phone}
+                              onChange={(e) => handleInputChange('phone', e.target.value)}
+                              placeholder="Enter your phone number"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="message">Message *</Label>
+                            <Textarea
+                              id="message"
+                              value={formData.message}
+                              onChange={(e) => handleInputChange('message', e.target.value)}
+                              placeholder="Tell us how we can help you..."
+                              rows={4}
+                              required
+                            />
+                          </div>
+                          <Button type="submit" className="w-full">
+                            Send Message
+                          </Button>
+                        </form>
+                      ) : (
+                        <div className="text-center py-8">
+                          <div className="text-green-600 text-lg font-semibold mb-2">
+                            Thank you for contacting us!
+                          </div>
+                          <p className="text-muted-foreground">
+                            We will contact you soon.
+                          </p>
+                        </div>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                 </>
               ) : hasOrderedWatch ? (
                 <>
@@ -80,9 +191,76 @@ export function HeroSection({
                     Order Status
                     <ArrowRight className="h-5 w-5" />
                   </Button>
-                  <Button variant="outline" size="lg" className="text-lg text-gray-800">
-                    Watch Demo
-                  </Button>
+                  <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="lg" className="text-lg text-gray-800">
+                        Contact Us
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Contact Us</DialogTitle>
+                      </DialogHeader>
+                      {!isSubmitted ? (
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          <div>
+                            <Label htmlFor="name">Full Name *</Label>
+                            <Input
+                              id="name"
+                              value={formData.name}
+                              onChange={(e) => handleInputChange('name', e.target.value)}
+                              placeholder="Enter your full name"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="email">Email Address *</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              value={formData.email}
+                              onChange={(e) => handleInputChange('email', e.target.value)}
+                              placeholder="Enter your email"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="phone">Phone Number</Label>
+                            <Input
+                              id="phone"
+                              type="tel"
+                              value={formData.phone}
+                              onChange={(e) => handleInputChange('phone', e.target.value)}
+                              placeholder="Enter your phone number"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="message">Message *</Label>
+                            <Textarea
+                              id="message"
+                              value={formData.message}
+                              onChange={(e) => handleInputChange('message', e.target.value)}
+                              placeholder="Tell us how we can help you..."
+                              rows={4}
+                              required
+                            />
+                          </div>
+                          <Button type="submit" className="w-full">
+                            Send Message
+                          </Button>
+                        </form>
+                      ) : (
+                        <div className="text-center py-8">
+                          <div className="text-green-600 text-lg font-semibold mb-2">
+                            Thank you for contacting us!
+                          </div>
+                          <p className="text-muted-foreground">
+                            We will contact you soon.
+                          </p>
+                        </div>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                 </>
               ) : (
                 <>
@@ -90,9 +268,76 @@ export function HeroSection({
                     Get Started Today
                     <ArrowRight className="h-5 w-5" />
                   </Button>
-                  <Button variant="outline" size="lg" className="text-lg text-gray-800">
-                    Watch Demo
-                  </Button>
+                  <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="lg" className="text-lg text-gray-800">
+                        Contact Us
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Contact Us</DialogTitle>
+                      </DialogHeader>
+                      {!isSubmitted ? (
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          <div>
+                            <Label htmlFor="name">Full Name *</Label>
+                            <Input
+                              id="name"
+                              value={formData.name}
+                              onChange={(e) => handleInputChange('name', e.target.value)}
+                              placeholder="Enter your full name"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="email">Email Address *</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              value={formData.email}
+                              onChange={(e) => handleInputChange('email', e.target.value)}
+                              placeholder="Enter your email"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="phone">Phone Number</Label>
+                            <Input
+                              id="phone"
+                              type="tel"
+                              value={formData.phone}
+                              onChange={(e) => handleInputChange('phone', e.target.value)}
+                              placeholder="Enter your phone number"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="message">Message *</Label>
+                            <Textarea
+                              id="message"
+                              value={formData.message}
+                              onChange={(e) => handleInputChange('message', e.target.value)}
+                              placeholder="Tell us how we can help you..."
+                              rows={4}
+                              required
+                            />
+                          </div>
+                          <Button type="submit" className="w-full">
+                            Send Message
+                          </Button>
+                        </form>
+                      ) : (
+                        <div className="text-center py-8">
+                          <div className="text-green-600 text-lg font-semibold mb-2">
+                            Thank you for contacting us!
+                          </div>
+                          <p className="text-muted-foreground">
+                            We will contact you soon.
+                          </p>
+                        </div>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                 </>
               )}
             </div>
