@@ -80,13 +80,24 @@ export function FeaturesSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Smart Watch Image */}
-          <div className="order-2 lg:order-1">
+          {/* Images Grid */}
+          <div className="order-2 lg:order-1 space-y-6">
+            {/* Smart Watch Image */}
             <div className="relative rounded-2xl overflow-hidden shadow-hero">
               <img 
                 src={seniorWatchImage} 
                 alt="Senior Smart Watch with SOS Button"
-                className="w-full h-80 object-cover"
+                className="w-full h-64 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
+            </div>
+            
+            {/* Dashboard Image */}
+            <div className="relative rounded-2xl overflow-hidden shadow-hero">
+              <img 
+                src={dashboardImage} 
+                alt="SeniorCare Family Health Dashboard"
+                className="w-full h-64 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
             </div>
