@@ -8,57 +8,49 @@ import {
   Ambulance, 
   Building2,
   Clock,
-  Watch,
-  AlertTriangle,
-  UserCheck,
-  Activity
+  Smartphone,
+  AlertTriangle
 } from "lucide-react";
-import healthTechImage from "@/assets/health-tech-hd.jpg";
+import dashboardImage from "@/assets/health-dashboard.jpg";
 
 const healthFeatures = [
   {
-    icon: Watch,
-    title: "Smart Watch with SOS Button",
-    description: "Accurate smartwatch designed for seniors with a dedicated SOS button on the side for instant emergency alerts.",
-    color: "text-primary"
-  },
-  {
     icon: Heart,
-    title: "24/7 Health Monitoring",
-    description: "Continuous monitoring of heart rate, blood pressure, activity levels, and vital signs with real-time family notifications.",
+    title: "Real-Time Health Monitoring",
+    description: "Continuous tracking of heart rate, blood pressure, activity levels, and more with instant family access.",
     color: "text-primary"
   },
   {
-    icon: Activity,
-    title: "Automatic Fall Detection",
-    description: "Advanced sensors detect falls automatically and instantly notify our emergency team and your children.",
+    icon: Smartphone,
+    title: "Family Dashboard",
+    description: "Loved ones access real-time health data, medication reminders, and daily activity summaries.",
     color: "text-accent-foreground"
   },
   {
     icon: AlertTriangle,
-    title: "One-Touch Emergency Alert",
-    description: "Press the SOS button to immediately alert our emergency response team and your family members.",
+    title: "Emergency Button",
+    description: "One-touch emergency activation sends instant alerts to family and emergency services.",
     color: "text-emergency"
   }
 ];
 
 const emergencyServices = [
   {
-    icon: UserCheck,
-    title: "Instant Emergency Response",
-    description: "When SOS is pressed or fall is detected, our emergency team immediately assesses the situation and contacts you and your family.",
+    icon: Phone,
+    title: "Hospital Coordination",
+    description: "Direct communication with nearby hospitals, medical history sharing, and appointment scheduling.",
     color: "text-primary"
   },
   {
     icon: Ambulance,
-    title: "Ambulance Dispatch & Coordination", 
-    description: "We handle ambulance dispatch, coordinate with paramedics, and ensure they have your medical information before arrival.",
+    title: "Ambulance Services",
+    description: "Immediate ambulance dispatch with pre-shared medical information and GPS location.",
     color: "text-emergency"
   },
   {
     icon: Building2,
-    title: "Insurance Claims Management",
-    description: "We take care of filing insurance claims for emergency services, so you and your family can focus on recovery.",
+    title: "Insurance Support",
+    description: "Direct insurance claim filing, pre-authorization handling, and coverage verification.",
     color: "text-accent-foreground"
   }
 ];
@@ -77,41 +69,39 @@ export function FeaturesSection() {
             Advanced technology that keeps families connected and seniors safe
           </p>
         </div>
-      </div>
 
-      {/* Full-width Image with Right-side Features */}
-      <div className="relative w-full h-[80vh] mb-20">
-        {/* Background Image - Full Width */}
-        <img 
-          src={healthTechImage} 
-          alt="Senior Smart Watch with Health Dashboard Integration"
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Gradient Overlay for Better Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-l from-background/95 via-background/60 to-transparent"></div>
-        
-        {/* Features Overlay - Positioned on Right Side */}
-        <div className="absolute right-8 top-1/2 -translate-y-1/2 w-full max-w-lg space-y-4 animate-fade-in">
-          {healthFeatures.map((feature, index) => (
-            <Card key={index} className="border-none shadow-hero bg-card/95 backdrop-blur-sm hover:shadow-card transition-all duration-300 hover-scale">
-              <CardHeader className="pb-3">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-gradient-feature rounded-lg">
-                    <feature.icon className={`h-6 w-6 ${feature.color}`} />
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+          {/* Dashboard Image */}
+          <div className="order-2 lg:order-1">
+            <div className="relative rounded-2xl overflow-hidden shadow-hero">
+              <img 
+                src={dashboardImage} 
+                alt="SeniorCare Family Health Dashboard"
+                className="w-full h-80 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
+            </div>
+          </div>
+
+          {/* Health Features */}
+          <div className="order-1 lg:order-2 space-y-6">
+            {healthFeatures.map((feature, index) => (
+              <Card key={index} className="border-none shadow-soft bg-card hover:shadow-card transition-shadow duration-300">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-muted rounded-lg">
+                      <feature.icon className={`h-6 w-6 ${feature.color}`} />
+                    </div>
+                    <CardTitle className="text-lg text-foreground">{feature.title}</CardTitle>
                   </div>
-                  <CardTitle className="text-lg text-foreground">{feature.title}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div className="container mx-auto px-6 lg:px-8">
 
         {/* Emergency Services */}
         <div className="text-center mb-16">
