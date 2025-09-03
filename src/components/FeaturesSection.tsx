@@ -8,49 +8,51 @@ import {
   Ambulance, 
   Building2,
   Clock,
-  Smartphone,
-  AlertTriangle
+  Watch,
+  AlertTriangle,
+  UserCheck,
+  Activity
 } from "lucide-react";
 import dashboardImage from "@/assets/health-dashboard.jpg";
 
 const healthFeatures = [
   {
-    icon: Heart,
-    title: "Real-Time Health Monitoring",
-    description: "Continuous tracking of heart rate, blood pressure, activity levels, and more with instant family access.",
+    icon: Watch,
+    title: "Smart Watch with SOS Button",
+    description: "Accurate smartwatch designed for seniors with a dedicated SOS button on the side for instant emergency alerts.",
     color: "text-primary"
   },
   {
-    icon: Smartphone,
-    title: "Family Dashboard",
-    description: "Loved ones access real-time health data, medication reminders, and daily activity summaries.",
+    icon: Activity,
+    title: "Automatic Fall Detection",
+    description: "Advanced sensors detect falls automatically and instantly notify our emergency team and your children.",
     color: "text-accent-foreground"
   },
   {
     icon: AlertTriangle,
-    title: "Emergency Button",
-    description: "One-touch emergency activation sends instant alerts to family and emergency services.",
+    title: "One-Touch Emergency Alert",
+    description: "Press the SOS button to immediately alert our emergency response team and your family members.",
     color: "text-emergency"
   }
 ];
 
 const emergencyServices = [
   {
-    icon: Phone,
-    title: "Hospital Coordination",
-    description: "Direct communication with nearby hospitals, medical history sharing, and appointment scheduling.",
+    icon: UserCheck,
+    title: "Instant Emergency Response",
+    description: "When SOS is pressed or fall is detected, our emergency team immediately assesses the situation and contacts you and your family.",
     color: "text-primary"
   },
   {
     icon: Ambulance,
-    title: "Ambulance Services",
-    description: "Immediate ambulance dispatch with pre-shared medical information and GPS location.",
+    title: "Ambulance Dispatch & Coordination", 
+    description: "We handle ambulance dispatch, coordinate with paramedics, and ensure they have your medical information before arrival.",
     color: "text-emergency"
   },
   {
     icon: Building2,
-    title: "Insurance Support",
-    description: "Direct insurance claim filing, pre-authorization handling, and coverage verification.",
+    title: "Insurance Claims Management",
+    description: "We take care of filing insurance claims for emergency services, so you and your family can focus on recovery.",
     color: "text-accent-foreground"
   }
 ];
