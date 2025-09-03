@@ -14,12 +14,19 @@ import {
   Activity
 } from "lucide-react";
 import dashboardImage from "@/assets/health-dashboard.jpg";
+import seniorWatchImage from "@/assets/senior-watch.jpg";
 
 const healthFeatures = [
   {
     icon: Watch,
     title: "Smart Watch with SOS Button",
     description: "Accurate smartwatch designed for seniors with a dedicated SOS button on the side for instant emergency alerts.",
+    color: "text-primary"
+  },
+  {
+    icon: Heart,
+    title: "24/7 Health Monitoring",
+    description: "Continuous monitoring of heart rate, blood pressure, activity levels, and vital signs with real-time family notifications.",
     color: "text-primary"
   },
   {
@@ -73,12 +80,12 @@ export function FeaturesSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Dashboard Image */}
+          {/* Smart Watch Image */}
           <div className="order-2 lg:order-1">
             <div className="relative rounded-2xl overflow-hidden shadow-hero">
               <img 
-                src={dashboardImage} 
-                alt="SeniorCare Family Health Dashboard"
+                src={seniorWatchImage} 
+                alt="Senior Smart Watch with SOS Button"
                 className="w-full h-80 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
