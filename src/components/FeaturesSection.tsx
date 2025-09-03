@@ -78,26 +78,25 @@ export function FeaturesSection() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Merged Health Tech Image */}
-          <div className="order-2 lg:order-1">
-            <div className="relative rounded-2xl overflow-hidden shadow-hero">
-              <img 
-                src={healthTechImage} 
-                alt="Senior Smart Watch with Health Dashboard Integration"
-                className="w-full h-80 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-            </div>
-          </div>
-
-          {/* Health Features */}
-          <div className="order-1 lg:order-2 space-y-6">
+        {/* Full-page Image with Overlay Features */}
+        <div className="relative w-full h-[80vh] mb-20 rounded-3xl overflow-hidden shadow-hero">
+          {/* Background Image */}
+          <img 
+            src={healthTechImage} 
+            alt="Senior Smart Watch with Health Dashboard Integration"
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Gradient Overlay for Better Text Readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent"></div>
+          
+          {/* Features Overlay - Positioned on Left Side */}
+          <div className="absolute left-8 top-1/2 -translate-y-1/2 w-full max-w-lg space-y-4 animate-fade-in">
             {healthFeatures.map((feature, index) => (
-              <Card key={index} className="border-none shadow-soft bg-card hover:shadow-card transition-shadow duration-300">
+              <Card key={index} className="border-none shadow-hero bg-card/95 backdrop-blur-sm hover:shadow-card transition-all duration-300 hover-scale">
                 <CardHeader className="pb-3">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-muted rounded-lg">
+                    <div className="p-2 bg-gradient-feature rounded-lg">
                       <feature.icon className={`h-6 w-6 ${feature.color}`} />
                     </div>
                     <CardTitle className="text-lg text-foreground">{feature.title}</CardTitle>
