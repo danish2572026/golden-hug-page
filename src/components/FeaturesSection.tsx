@@ -13,7 +13,7 @@ import {
   UserCheck,
   Activity
 } from "lucide-react";
-import healthTechImage from "@/assets/health-tech-composite.jpg";
+import healthTechImage from "@/assets/health-tech-hd.jpg";
 
 const healthFeatures = [
   {
@@ -77,38 +77,41 @@ export function FeaturesSection() {
             Advanced technology that keeps families connected and seniors safe
           </p>
         </div>
+      </div>
 
-        {/* Full-page Image with Overlay Features */}
-        <div className="relative w-full h-[80vh] mb-20 rounded-3xl overflow-hidden shadow-hero">
-          {/* Background Image */}
-          <img 
-            src={healthTechImage} 
-            alt="Senior Smart Watch with Health Dashboard Integration"
-            className="w-full h-full object-cover"
-          />
-          
-          {/* Gradient Overlay for Better Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent"></div>
-          
-          {/* Features Overlay - Positioned on Left Side */}
-          <div className="absolute left-8 top-1/2 -translate-y-1/2 w-full max-w-lg space-y-4 animate-fade-in">
-            {healthFeatures.map((feature, index) => (
-              <Card key={index} className="border-none shadow-hero bg-card/95 backdrop-blur-sm hover:shadow-card transition-all duration-300 hover-scale">
-                <CardHeader className="pb-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-feature rounded-lg">
-                      <feature.icon className={`h-6 w-6 ${feature.color}`} />
-                    </div>
-                    <CardTitle className="text-lg text-foreground">{feature.title}</CardTitle>
+      {/* Full-width Image with Right-side Features */}
+      <div className="relative w-full h-[80vh] mb-20">
+        {/* Background Image - Full Width */}
+        <img 
+          src={healthTechImage} 
+          alt="Senior Smart Watch with Health Dashboard Integration"
+          className="w-full h-full object-cover"
+        />
+        
+        {/* Gradient Overlay for Better Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-l from-background/95 via-background/60 to-transparent"></div>
+        
+        {/* Features Overlay - Positioned on Right Side */}
+        <div className="absolute right-8 top-1/2 -translate-y-1/2 w-full max-w-lg space-y-4 animate-fade-in">
+          {healthFeatures.map((feature, index) => (
+            <Card key={index} className="border-none shadow-hero bg-card/95 backdrop-blur-sm hover:shadow-card transition-all duration-300 hover-scale">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-gradient-feature rounded-lg">
+                    <feature.icon className={`h-6 w-6 ${feature.color}`} />
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  <CardTitle className="text-lg text-foreground">{feature.title}</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
+      </div>
+
+      <div className="container mx-auto px-6 lg:px-8">
 
         {/* Emergency Services */}
         <div className="text-center mb-16">
