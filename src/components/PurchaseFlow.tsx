@@ -97,6 +97,7 @@ export function PurchaseFlow({ isOpen, onClose, selectedPlan, allPlans }: Purcha
         {currentStep === 'otp' && userDetails && (
           <OTPVerification
             email={userDetails.email}
+            context="signup"
             onBack={handleBack}
             onVerified={handleOTPVerified}
           />
