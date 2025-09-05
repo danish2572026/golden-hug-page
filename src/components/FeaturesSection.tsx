@@ -11,25 +11,28 @@ import {
   Smartphone,
   AlertTriangle
 } from "lucide-react";
-import dashboardImage from "@/assets/health-dashboard.jpg";
+import watchDashboardImage from "@/assets/watch-dashboard-combo.jpg";
 
 const healthFeatures = [
   {
     icon: Heart,
     title: "Real-Time Health Monitoring",
     description: "Continuous tracking of heart rate, blood pressure, activity levels, and more with instant family access.",
+    price: "Watch included - $299/month",
     color: "text-primary"
   },
   {
     icon: Smartphone,
     title: "Family Dashboard",
     description: "Loved ones access real-time health data, medication reminders, and daily activity summaries.",
+    price: "Premium Plan - $199/month",
     color: "text-accent-foreground"
   },
   {
     icon: AlertTriangle,
     title: "Emergency Button",
     description: "One-touch emergency activation sends instant alerts to family and emergency services.",
+    price: "24/7 Monitoring - $99/month",
     color: "text-emergency"
   }
 ];
@@ -75,8 +78,8 @@ export function FeaturesSection() {
           <div className="order-2 lg:order-1">
             <div className="relative rounded-2xl overflow-hidden shadow-hero">
               <img 
-                src={dashboardImage} 
-                alt="SeniorCare Family Health Dashboard"
+                src={watchDashboardImage} 
+                alt="Smart Watch and Health Dashboard Monitoring System"
                 className="w-full h-80 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
@@ -97,6 +100,9 @@ export function FeaturesSection() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{feature.description}</p>
+                  <div className="mt-3 pt-3 border-t">
+                    <span className="text-sm font-semibold text-primary">{feature.price}</span>
+                  </div>
                 </CardContent>
               </Card>
             ))}

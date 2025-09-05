@@ -99,6 +99,7 @@ export function PurchaseFlow({ isOpen, onClose, selectedPlan, allPlans }: Purcha
             email={userDetails.email}
             onBack={handleBack}
             onVerified={handleOTPVerified}
+            context="signup"
           />
         )}
 
