@@ -164,8 +164,9 @@ const Index = () => {
                 className="mt-4 bg-gradient-to-r from-primary to-primary/80 text-white"
               >
                 Log In
+              
               </Button>
-            )}
+              )}
             {isLoggedIn && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

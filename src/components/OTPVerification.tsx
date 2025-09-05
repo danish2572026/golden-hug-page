@@ -5,20 +5,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { ArrowLeft, Mail } from "lucide-react";
 
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+
 interface OTPVerificationProps {
   email: string;
   onBack: () => void;
-  onVerified: () => void;
+  onVerified: (otpCode: string) => void; // pass OTP back to parent
+  context: "signup" | "forgot-password";
 }
 
-export function OTPVerification({ email, onBack, onVerified }: OTPVerificationProps) {
+export function OTPVerification({ email, context, onBack, onVerified }: OTPVerificationProps) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
-    // Focus the first input on mount
     inputRefs.current[0]?.focus();
   }, []);
 
@@ -27,8 +30,6 @@ export function OTPVerification({ email, onBack, onVerified }: OTPVerificationPr
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
-
-      // Move to next input if value is entered
       if (value && index < 5) {
         inputRefs.current[index + 1]?.focus();
       }
@@ -49,16 +50,25 @@ export function OTPVerification({ email, onBack, onVerified }: OTPVerificationPr
     }
 
     setLoading(true);
-    
-    // Simulate OTP verification (in real app, this would be an API call)
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
-      
-      // For demo purposes, accept any 6-digit code
-      toast.success("Email verified successfully!");
-      onVerified();
+      const res = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp: otpCode, flow: context })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message || "Invalid OTP");
+        return;
+      }
+
+      toast.success("OTP verified successfully!");
+      onVerified(otpCode); // pass otp to parent ForgotPassword
     } catch (error) {
-      toast.error("Invalid verification code");
+      toast.error("Failed to verify OTP");
     } finally {
       setLoading(false);
     }
@@ -66,13 +76,24 @@ export function OTPVerification({ email, onBack, onVerified }: OTPVerificationPr
 
   const handleResendCode = async () => {
     setResendLoading(true);
-    
-    // Simulate resending OTP
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const res = await fetch(`${API_BASE_URL}/auth/send-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, flow: context })
+      });
+
+      const data = await res.json();
+
+      if (!data.is_success) {
+        toast.error(data.message || "Failed to resend code");
+        return;
+      }
+
       toast.success("Verification code sent to your email");
     } catch (error) {
-      toast.error("Failed to resend code");
+      toast.error("Network error, please try again");
     } finally {
       setResendLoading(false);
     }
@@ -123,7 +144,7 @@ export function OTPVerification({ email, onBack, onVerified }: OTPVerificationPr
         {/* Resend Code */}
         <div className="text-center space-y-2">
           <p className="text-sm text-muted-foreground">
-            Didn't receive the code?
+            Didn’t receive the code?
           </p>
           <Button
             variant="ghost"
@@ -142,9 +163,10 @@ export function OTPVerification({ email, onBack, onVerified }: OTPVerificationPr
           className="w-full"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Sign Up
+          Back
         </Button>
       </CardContent>
     </Card>
   );
 }
+

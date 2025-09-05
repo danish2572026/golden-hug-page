@@ -12,3 +12,4 @@ export const SimpleMap = ({ latitude, longitude }: { latitude: number; longitude
     </div>
   </div>
 );
+
