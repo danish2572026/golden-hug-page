@@ -9,30 +9,40 @@ import {
   Building2,
   Clock,
   Smartphone,
-  AlertTriangle
+  AlertTriangle,
+  Activity,
+  Moon,
+  UserX
 } from "lucide-react";
-import watchDashboardImage from "@/assets/watch-dashboard-combo.jpg";
+import completeHealthImage from "@/assets/complete-health-monitoring.jpg";
 
 const healthFeatures = [
   {
     icon: Heart,
-    title: "Real-Time Health Monitoring",
-    description: "Continuous tracking of heart rate, blood pressure, activity levels, and more with instant family access.",
+    title: "Heart Rate Monitor",
+    description: "Continuous heart rate tracking with real-time alerts for irregular patterns and family notifications.",
     price: "Watch included - $299/month",
     color: "text-primary"
   },
   {
-    icon: Smartphone,
-    title: "Family Dashboard",
-    description: "Loved ones access real-time health data, medication reminders, and daily activity summaries.",
-    price: "Premium Plan - $199/month",
+    icon: Activity,
+    title: "Blood Pressure Monitor",
+    description: "Automated BP readings with trend analysis and medication reminders for optimal health management.",
+    price: "BP Cuff included - $249/month",
     color: "text-accent-foreground"
   },
   {
-    icon: AlertTriangle,
-    title: "Emergency Button",
-    description: "One-touch emergency activation sends instant alerts to family and emergency services.",
-    price: "24/7 Monitoring - $99/month",
+    icon: Moon,
+    title: "Sleep Tracking",
+    description: "Advanced sleep pattern analysis with quality scores and personalized improvement recommendations.",
+    price: "Sleep Sensor - $199/month",
+    color: "text-secondary"
+  },
+  {
+    icon: UserX,
+    title: "Fall Detection",
+    description: "Intelligent fall detection system with instant emergency alerts and GPS location sharing.",
+    price: "Emergency Response - $149/month",
     color: "text-emergency"
   }
 ];
@@ -73,39 +83,41 @@ export function FeaturesSection() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Dashboard Image */}
-          <div className="order-2 lg:order-1">
-            <div className="relative rounded-2xl overflow-hidden shadow-hero">
-              <img 
-                src={watchDashboardImage} 
-                alt="Smart Watch and Health Dashboard Monitoring System"
-                className="w-full h-80 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-            </div>
+        <div className="relative min-h-[80vh] rounded-3xl overflow-hidden">
+          {/* Full Background Image */}
+          <div className="absolute inset-0">
+            <img 
+              src={completeHealthImage} 
+              alt="Complete Health Monitoring System with Heart Rate, BP, Sleep Tracking, and Fall Detection"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/70"></div>
           </div>
 
-          {/* Health Features */}
-          <div className="order-1 lg:order-2 space-y-6">
-            {healthFeatures.map((feature, index) => (
-              <Card key={index} className="border-none shadow-soft bg-card hover:shadow-card transition-shadow duration-300">
-                <CardHeader className="pb-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-muted rounded-lg">
-                      <feature.icon className={`h-6 w-6 ${feature.color}`} />
+          {/* Overlaid Health Features */}
+          <div className="relative z-10 p-8 lg:p-16 h-full flex flex-col justify-center">
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
+              {healthFeatures.map((feature, index) => (
+                <Card key={index} className="border-none shadow-hero bg-card/90 backdrop-blur-md hover:bg-card/95 transition-all duration-300 hover:scale-105">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-3 bg-gradient-feature rounded-xl">
+                        <feature.icon className={`h-7 w-7 ${feature.color}`} />
+                      </div>
+                      <CardTitle className="text-xl text-foreground">{feature.title}</CardTitle>
                     </div>
-                    <CardTitle className="text-lg text-foreground">{feature.title}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                  <div className="mt-3 pt-3 border-t">
-                    <span className="text-sm font-semibold text-primary">{feature.price}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground mb-3">{feature.description}</p>
+                    <div className="pt-3 border-t border-border/50">
+                      <span className="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">
+                        {feature.price}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
 
