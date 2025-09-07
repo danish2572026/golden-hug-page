@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Eye, EyeOff, Heart } from "lucide-react";
 import { OTPVerification } from "@/components/OTPVerification";
 import { ForgotPassword } from "@/components/ForgotPassword";
+import heroImage from "@/assets/hero-senior1.png";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 type OTPMode = "signup" | "forgot-password";
@@ -184,14 +185,24 @@ export const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="relative min-h-screen flex items-center justify-center p-4">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={heroImage}
+          alt="Senior citizen with health monitor"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70" />
+      </div>
+      {/* Content */}
+      <div className="relative w-full max-w-md z-10">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
             <Heart className="h-8 w-8 text-primary mr-2" />
-            <h1 className="text-2xl font-bold text-foreground">Health Monitor</h1>
+            <h1 className="text-2xl font-bold text-white">Health Monitor</h1>
           </div>
-          <p className="text-muted-foreground">
+          <p className="text-gray-200">
             Access your health dashboard and emergency monitoring
           </p>
         </div>
@@ -204,7 +215,7 @@ export const Auth = () => {
             onVerified={handleOTPVerified}
           />
         ) : showForgotPassword ? (
-          <Card>
+          <Card className="bg-white/95 backdrop-blur-md shadow-hero border-white/20">
             <CardHeader>
               <CardTitle className="text-center">Forgot Password</CardTitle>
             </CardHeader>
@@ -215,7 +226,7 @@ export const Auth = () => {
             </CardContent>
           </Card>
         ) : (
-          <Card>
+          <Card className="bg-white/95 backdrop-blur-md shadow-hero border-white/20">
             <CardHeader>
               <CardTitle className="text-center">Welcome</CardTitle>
             </CardHeader>
@@ -405,7 +416,7 @@ export const Auth = () => {
         )}
 
         <div className="text-center mt-6">
-          <Button variant="ghost" onClick={() => navigate("/")} className="text-muted-foreground">
+          <Button variant="ghost" onClick={() => navigate("/")} className="text-white/80 hover:text-white">
             ← Back to homepage
           </Button>
         </div>
