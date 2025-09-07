@@ -65,50 +65,48 @@ export function HeroSection({
     }, 3000);
   };
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-background">
-      {/* Animated Background */}
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Full Background Image */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary opacity-90"></div>
-        <div className="absolute inset-0 bg-gradient-accent opacity-10 animate-pulse"></div>
         <img
           src={heroImage1}
-          alt="Happy senior wearing health monitoring smartwatch"
-          className="w-full h-full object-cover opacity-20"
+          alt="Happy senior wearing SeniorCare health watch"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/20" />
       </div>
 
       {/* Content */}
       <div className="relative container mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8 text-white">
             <div className="space-y-4">
-              <h1 className="text-4xl lg:text-6xl font-display font-bold leading-tight text-foreground">
-                Next-Gen Health
-                <span className="bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent block animate-float">
-                  Monitoring
+              <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
+                Peace of Mind for
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent block">
+                  Your Loved Ones
                 </span>
               </h1>
-              <p className="text-xl leading-relaxed max-w-lg text-muted-foreground">
-                Advanced AI-powered health monitoring with instant emergency response, 
-                real-time family notifications, and comprehensive care analytics.
+              <p className="text-xl leading-relaxed max-w-lg text-gray-200">
+                Advanced health monitoring with instant emergency response, 
+                real-time family notifications, and comprehensive care services.
               </p>
             </div>
 
             {/* Key Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="flex items-center space-x-3 p-4 bg-gradient-card backdrop-blur-md rounded-xl shadow-card border border-border/50 hover:shadow-glow transition-all duration-300">
-                <Heart className="h-6 w-6 text-primary animate-glow-pulse" />
-                <span className="text-sm font-medium text-card-foreground">24/7 AI Monitoring</span>
+              <div className="flex items-center space-x-3 p-3 bg-white/10 backdrop-blur-md rounded-lg shadow-soft">
+                <Heart className="h-6 w-6 text-primary" />
+                <span className="text-sm font-medium">24/7 Health Monitoring</span>
               </div>
-              <div className="flex items-center space-x-3 p-4 bg-gradient-card backdrop-blur-md rounded-xl shadow-card border border-border/50 hover:shadow-glow transition-all duration-300">
+              <div className="flex items-center space-x-3 p-3 bg-white/10 backdrop-blur-md rounded-lg shadow-soft">
                 <Phone className="h-6 w-6 text-emergency" />
-                <span className="text-sm font-medium text-card-foreground">Instant Response</span>
+                <span className="text-sm font-medium">Instant Emergency</span>
               </div>
-              <div className="flex items-center space-x-3 p-4 bg-gradient-card backdrop-blur-md rounded-xl shadow-card border border-border/50 hover:shadow-glow transition-all duration-300">
-                <Shield className="h-6 w-6 text-accent" />
-                <span className="text-sm font-medium text-card-foreground">Family Connected</span>
+              <div className="flex items-center space-x-3 p-3 bg-white/10 backdrop-blur-md rounded-lg shadow-soft">
+                <Shield className="h-6 w-6 text-accent-foreground" />
+                <span className="text-sm font-medium">Family Connected</span>
               </div>
             </div>
 
