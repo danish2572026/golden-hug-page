@@ -6,23 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Shield, CreditCard, ArrowLeft, Package, User, MapPin } from "lucide-react";
 import { toast } from "sonner";
-
-interface Plan {
-  id: string;
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  features: string[];
-}
-
-interface UserDetails {
-  fullName: string;
-  email: string;
-  phone: string;
-  address: string;
-  selectedPlan: Plan;
-}
+import { getUserEmail } from "@/utils/storage";
+import { Plan, UserDetails } from "@/lib/users";
 
 interface PaymentFormProps {
   userDetails: UserDetails;
@@ -133,14 +118,14 @@ export function PaymentForm({ userDetails, onBack, onPaymentSuccess }: PaymentFo
               <div className="flex items-start gap-2">
                 <User className="h-4 w-4 text-muted-foreground mt-0.5" />
                 <div>
-                  <p className="font-medium">{userDetails.fullName}</p>
-                  <p className="text-muted-foreground">{userDetails.email}</p>
-                  <p className="text-muted-foreground">{userDetails.phone}</p>
+                  <p className="font-medium">{userDetails.address.full_name}</p>
+                  <p className="text-muted-foreground">{getUserEmail()}</p>
+                  <p className="text-muted-foreground">{userDetails.address.phone}</p>
                 </div>
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-muted-foreground mt-0.5" />
-                <p className="text-muted-foreground">{userDetails.address}</p>
+                <p className="text-muted-foreground">{userDetails.address.address_line1}</p>
               </div>
             </CardContent>
           </Card>

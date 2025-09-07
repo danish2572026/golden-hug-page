@@ -65,10 +65,10 @@ export const Auth = () => {
         return { error: { message: data.message || "Login failed" } };
       }
       // Save token, uid, and email in localStorage
-      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("access_token", data.data.access_token);
       localStorage.setItem("userEmail", email);
-      if (data.uid) {
-        localStorage.setItem("uid", data.uid);
+      if (data.data.uid) {
+        localStorage.setItem("uid", data.data.uid);
       }
       return { error: null };
     } catch (err) {

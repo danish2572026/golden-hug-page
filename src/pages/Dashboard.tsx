@@ -14,6 +14,7 @@ import { ClinicalDiagnosisDashboard } from "@/components/dashboards/ClinicalDiag
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { fetchDevices, fetchDashboard } from "@/lib/deviceApi";
+
 import { 
   Heart, 
   Activity, 
@@ -74,7 +75,7 @@ interface Device {
 export const Dashboard = () => {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedDevice, setSelectedDevice] = useState<string>("00bf82a1-217e-4188-ba2e-6697595c49b9");
+  const [selectedDevice, setSelectedDevice] = useState<string>("");
   const [devices, setDevices] = useState<Device[]>([]);
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -92,14 +93,12 @@ export const Dashboard = () => {
     } else if (domain?.includes('support') || domain?.includes('cs') || domain?.includes('help')) {
       return 'support';
     } else {
-      return 'customer'; // Default for regular customers
+      return 'customer';
     }
   };
 
   // Extract username from email
-  const getUsername = (email: string) => {
-    return email.split('@')[0];
-  };
+  const getUsername = (email: string) => email.split('@')[0];
 
   const email = localStorage.getItem("userEmail");
   const userRole = email != null ? getUserRole(email) : 'customer';

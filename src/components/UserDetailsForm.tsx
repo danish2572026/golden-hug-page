@@ -1,28 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User, Mail, Phone, MapPin, Package } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { MapPin, Package } from "lucide-react";
 import { toast } from "sonner";
-
-interface Plan {
-  id: string;
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  features: string[];
-}
-
-interface UserDetails {
-  fullName: string;
-  email: string;
-  phone: string;
-  address: string;
-  selectedPlan: Plan;
-}
+import { fetchUserDetails, UserDetails, Plan, Address } from "@/lib/users";
+import { getUserEmail } from "@/utils/storage";
 
 interface UserDetailsFormProps {
   selectedPlan: Plan;
@@ -31,166 +16,183 @@ interface UserDetailsFormProps {
   onClose: () => void;
 }
 
-export function UserDetailsForm({ selectedPlan, allPlans, onSubmit, onClose }: UserDetailsFormProps) {
+export function UserDetailsForm({
+  selectedPlan,
+  allPlans,
+  onSubmit,
+  onClose,
+}: UserDetailsFormProps) {
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    address: "",
-    selectedPlanId: selectedPlan.id
+    address: {
+      full_name: "",
+      phone: "",
+      address_line1: "",
+      address_line2: "",
+      city: "",
+      state: "",
+      postal_code: "",
+      country: "India",
+    },
+    selectedPlanId: selectedPlan.id,
   });
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
+  const [savedAddresses, setSavedAddresses] = useState<Address[]>([]);
+  const [selectedAddress, setSelectedAddress] = useState<string>("");
+  const email = getUserEmail();
+
+  useEffect(() => {
+    async function loadUserDetails() {
+      try {
+        const userDetails = await fetchUserDetails(email);
+        console.log("asdasd", userDetails);
+        if (userDetails.addresses?.length > 0) {
+          setSavedAddresses(userDetails.addresses);
+          setSelectedAddress(userDetails.addresses[0].id); // default to first
+        }
+      } catch (err) {
+        console.error("Failed to load user details", err);
+      }
+    }
+    loadUserDetails();
+  }, [email]);
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      address: {
+        ...prev.address,
+        [field]: value,
+      },
     }));
   };
 
   const handleSubmit = () => {
-    // Validate required fields
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.address) {
+  const chosenPlan =
+    allPlans.find((plan) => plan.id === formData.selectedPlanId) ||
+    selectedPlan;
+
+  // Ensure finalAddress always matches Address type
+  const finalAddress: Address =
+    savedAddresses.length > 0 && selectedAddress
+      ? savedAddresses.find((a) => a.id === selectedAddress)!
+      : {
+          ...formData.address,
+          id: "new",          // default placeholder for new address
+          relation: "self",   // default relation
+        };
+
+    if (
+      !finalAddress.full_name ||
+      !finalAddress.phone ||
+      !finalAddress.address_line1 ||
+      !finalAddress.city ||
+      !finalAddress.state ||
+      !finalAddress.postal_code ||
+      !finalAddress.country
+    ) {
       toast.error("Please fill in all required fields");
       return;
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast.error("Please enter a valid email address");
-      return;
-    }
-
-    const chosenPlan = allPlans.find(plan => plan.id === formData.selectedPlanId) || selectedPlan;
-
     const userDetails: UserDetails = {
-      fullName: formData.fullName,
-      email: formData.email,
-      phone: formData.phone,
-      address: formData.address,
-      selectedPlan: chosenPlan
+      address: finalAddress,
+      selectedPlan: chosenPlan,
     };
 
     onSubmit(userDetails);
   };
 
-  const currentSelectedPlan = allPlans.find(plan => plan.id === formData.selectedPlanId) || selectedPlan;
-
   return (
     <div className="space-y-6">
-      {/* Selected Plan Summary */}
+      {/* Plan Summary */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Package className="h-5 w-5" />
-            Your Selected Plan
+            <Package className="h-5 w-5" /> Your Selected Plan
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <h3 className="font-semibold">{currentSelectedPlan.name}</h3>
-              <p className="text-sm text-muted-foreground">{currentSelectedPlan.description}</p>
-            </div>
-            <div className="text-right">
-              <span className="text-2xl font-bold text-primary">{currentSelectedPlan.price}</span>
-              <p className="text-sm text-muted-foreground">{currentSelectedPlan.period}</p>
-            </div>
-          </div>
-          
-          <div>
-            <Label htmlFor="planSelect">Change Plan (Optional)</Label>
-            <Select value={formData.selectedPlanId} onValueChange={(value) => handleInputChange('selectedPlanId', value)}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {allPlans.map((plan) => (
-                  <SelectItem key={plan.id} value={plan.id}>
-                    {plan.name} - {plan.price}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <h3 className="font-semibold">{selectedPlan.name}</h3>
+          <p className="text-sm text-muted-foreground">
+            {selectedPlan.description}
+          </p>
+          <span className="text-2xl font-bold text-primary">
+            ₹{selectedPlan.price}
+          </span>
         </CardContent>
       </Card>
 
-      {/* User Details Form */}
+      {/* Address Info */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <User className="h-5 w-5" />
-            Personal Information
+            <MapPin className="h-5 w-5" /> Delivery Address
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <Label htmlFor="fullName">Full Name *</Label>
-            <div className="relative">
-              <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+          {savedAddresses.length > 0 ? (
+            <RadioGroup value={selectedAddress} onValueChange={setSelectedAddress}>
+              {savedAddresses.map((addr) => (
+                <div key={addr.id} className="flex items-center space-x-2">
+                  <RadioGroupItem value={addr.id} id={`addr-${addr.id}`} />
+                  <Label htmlFor={`addr-${addr.id}`}>
+                    {addr.full_name}, {addr.phone}, {addr.address_line1},{" "}
+                    {addr.city}, {addr.state}, {addr.postal_code},{" "}
+                    {addr.country}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          ) : (
+            <>
               <Input
-                id="fullName"
-                value={formData.fullName}
-                onChange={(e) => handleInputChange('fullName', e.target.value)}
-                placeholder="Enter your full name"
-                className="pl-10"
+                placeholder="Full Name"
+                value={formData.address.full_name}
+                onChange={(e) => handleChange("full_name", e.target.value)}
               />
-            </div>
-          </div>
-
-          <div>
-            <Label htmlFor="email">Email Address *</Label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                placeholder="Enter your email address"
-                className="pl-10"
+                placeholder="Phone"
+                value={formData.address.phone}
+                onChange={(e) => handleChange("phone", e.target.value)}
               />
-            </div>
-          </div>
-
-          <div>
-            <Label htmlFor="phone">Phone Number *</Label>
-            <div className="relative">
-              <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                id="phone"
-                value={formData.phone}
-                onChange={(e) => handleInputChange('phone', e.target.value)}
-                placeholder="Enter your phone number"
-                className="pl-10"
+                placeholder="Address Line 1"
+                value={formData.address.address_line1}
+                onChange={(e) => handleChange("address_line1", e.target.value)}
               />
-            </div>
-          </div>
-
-          <div>
-            <Label htmlFor="address">Delivery Address *</Label>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                id="address"
-                value={formData.address}
-                onChange={(e) => handleInputChange('address', e.target.value)}
-                placeholder="Enter your complete delivery address"
-                className="pl-10"
+                placeholder="Address Line 2"
+                value={formData.address.address_line2}
+                onChange={(e) => handleChange("address_line2", e.target.value)}
               />
-            </div>
-          </div>
+              <Input
+                placeholder="City"
+                value={formData.address.city}
+                onChange={(e) => handleChange("city", e.target.value)}
+              />
+              <Input
+                placeholder="State"
+                value={formData.address.state}
+                onChange={(e) => handleChange("state", e.target.value)}
+              />
+              <Input
+                placeholder="Postal Code"
+                value={formData.address.postal_code}
+                onChange={(e) => handleChange("postal_code", e.target.value)}
+              />
+              <Input
+                placeholder="Country"
+                value={formData.address.country}
+                onChange={(e) => handleChange("country", e.target.value)}
+              />
+            </>
+          )}
         </CardContent>
       </Card>
 
-      {/* Action Buttons */}
+      {/* Actions */}
       <div className="flex gap-3">
-        <Button
-          variant="outline"
-          onClick={onClose}
-          className="flex-1"
-        >
+        <Button variant="outline" onClick={onClose} className="flex-1">
           Cancel
         </Button>
         <Button

@@ -1,7 +1,6 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { HeroSection } from "@/components/HeroSection";
 import { FeaturesSection } from "@/components/FeaturesSection";
-import { SmartWatchSection } from "@/components/SmartWatchSection";
 import { PlansSection } from "@/components/PlansSection";
 import { WhyUsSection } from "@/components/WhyUsSection";
 import { FAQSection } from "@/components/FAQSection";
@@ -13,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { clearAuthStorage } from "@/utils/storage";
 
 const Index = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -50,7 +48,9 @@ const Index = () => {
   };
 
   const handleLogout = () => {
-    clearAuthStorage();
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("uid");
     localStorage.removeItem("hasOrderedWatch");
     setIsLoggedIn(false);
     setUserEmail("");
@@ -113,7 +113,7 @@ const Index = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuItem onClick={() => navigate("/settings")}>
+                <DropdownMenuItem onClick={() => navigate("/dashboard")}>
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                 </DropdownMenuItem>
@@ -200,7 +200,6 @@ const Index = () => {
           onGetStarted={handleGetStarted}
           onOrderStatus={handleOrderStatus}
         />
-        <SmartWatchSection />
         <div id="features">
           <FeaturesSection />
         </div>
