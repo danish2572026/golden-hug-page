@@ -72,15 +72,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-green-700 via-green-300 to-white">
+    <div className="min-h-screen w-full bg-background">
       {/* Modern Header with Navigation */}
-      <header className="h-20 flex items-center justify-between border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-50 px-6 lg:px-8">
+      <header className="h-20 flex items-center justify-between border-b border-border/50 bg-card/80 backdrop-blur-md sticky top-0 z-50 px-6 lg:px-8 shadow-soft">
         {/* Logo */}
         <div className="flex items-center">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center mr-3">
-            <Heart className="h-6 w-6 text-white" />
+          <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mr-3 shadow-glow animate-glow-pulse">
+            <Heart className="h-6 w-6 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-display font-bold bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent">
             WeCareWell
           </h1>
         </div>
@@ -91,11 +91,11 @@ const Index = () => {
             <button
               key={item.title}
               onClick={() => handleNavigation(item)}
-              className="group flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-all duration-200 relative"
+              className="group flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-all duration-300 relative"
             >
-              <item.icon className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform duration-200" />
+              <item.icon className="h-4 w-4 mr-2 group-hover:scale-110 group-hover:text-accent transition-all duration-300" />
               {item.title}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-primary/70 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-300"></span>
             </button>
           ))}
         </nav>
@@ -128,7 +128,7 @@ const Index = () => {
             /* Login Button for Non-Logged In Users */
             <Button
               onClick={() => navigate("/auth")}
-              className="hidden md:flex bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+              className="hidden md:flex bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-hero hover:shadow-glow transition-all duration-300 transform hover:-translate-y-0.5 animate-fade-in"
             >
               Log In
             </Button>
@@ -146,13 +146,13 @@ const Index = () => {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border/50 z-40">
+        <div className="md:hidden absolute top-20 left-0 right-0 bg-card/95 backdrop-blur-md border-b border-border/50 z-40 shadow-card animate-fade-in">
           <nav className="flex flex-col p-4 space-y-2">
             {navigationItems.map((item) => (
               <button
                 key={item.title}
                 onClick={() => handleNavigation(item)}
-                className="flex items-center p-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-accent/50 transition-all duration-200"
+                className="flex items-center p-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-primary hover:bg-secondary/50 transition-all duration-300"
               >
                 <item.icon className="h-4 w-4 mr-3" />
                 {item.title}
@@ -161,12 +161,11 @@ const Index = () => {
             {!isLoggedIn && (
               <Button
                 onClick={() => navigate("/auth")}
-                className="mt-4 bg-gradient-to-r from-primary to-primary/80 text-white"
+                className="mt-4 bg-gradient-to-r from-primary to-accent text-primary-foreground"
               >
                 Log In
-              
               </Button>
-              )}
+            )}
             {isLoggedIn && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

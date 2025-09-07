@@ -5,15 +5,7 @@ import { OTPVerification } from "./OTPVerification";
 import { PaymentForm } from "./PaymentForm";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-
-interface Plan {
-  id: string;
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  features: string[];
-}
+import { UserDetails, Plan } from "@/lib/users";
 
 interface PurchaseFlowProps {
   isOpen: boolean;
@@ -23,14 +15,6 @@ interface PurchaseFlowProps {
 }
 
 type FlowStep = 'details' | 'otp' | 'payment';
-
-interface UserDetails {
-  fullName: string;
-  email: string;
-  phone: string;
-  address: string;
-  selectedPlan: Plan;
-}
 
 export function PurchaseFlow({ isOpen, onClose, selectedPlan, allPlans }: PurchaseFlowProps) {
   const [currentStep, setCurrentStep] = useState<FlowStep>('details');
@@ -96,7 +80,8 @@ export function PurchaseFlow({ isOpen, onClose, selectedPlan, allPlans }: Purcha
 
         {currentStep === 'otp' && userDetails && (
           <OTPVerification
-            email={userDetails.email}
+            email={userDetails.address.phone}
+            context="signup"
             onBack={handleBack}
             onVerified={handleOTPVerified}
           />
