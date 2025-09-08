@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import { Dashboard } from "./pages/Dashboard";
 import { Auth } from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import BuyNow from "./pages/BuyNow";
 import { SettingsDashboard } from "@/components/dashboards/SettingsDashboard";
 
 const queryClient = new QueryClient();
@@ -19,6 +20,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/buy-now" element={<BuyNow />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

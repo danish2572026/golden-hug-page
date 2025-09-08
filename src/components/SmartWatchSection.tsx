@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { 
   Heart, 
   Activity, 
@@ -7,6 +8,7 @@ import {
   Droplets,
   Timer
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import watch from "@/assets/watch.jpg";
 
 const watchFeatures = [
@@ -44,6 +46,12 @@ const watchFeatures = [
 
 
 export function SmartWatchSection() {
+  const navigate = useNavigate();
+
+  const handleBuyNow = () => {
+    navigate('/buy-now');
+  };
+
   return (
     <section className="py-16 bg-black relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black opacity-90"></div>
@@ -90,9 +98,16 @@ export function SmartWatchSection() {
         </div>
 
         <div className="text-center mt-8">
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-sm mb-6">
             All features included with your SeniorCare watch
           </p>
+          <Button 
+            onClick={handleBuyNow}
+            size="lg" 
+            className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
+          >
+            Buy Now
+          </Button>
         </div>
       </div>
     </section>
