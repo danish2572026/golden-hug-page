@@ -5,15 +5,7 @@ import { OTPVerification } from "./OTPVerification";
 import { PaymentForm } from "./PaymentForm";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-
-interface Plan {
-  id: string;
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  features: string[];
-}
+import { Plan, Address } from "@/lib/users";
 
 interface PurchaseFlowProps {
   isOpen: boolean;
@@ -24,20 +16,18 @@ interface PurchaseFlowProps {
 
 type FlowStep = 'details' | 'otp' | 'payment';
 
-interface UserDetails {
-  fullName: string;
-  email: string;
-  phone: string;
-  address: string;
+interface PurchaseUserDetails {
+  address: Address;
   selectedPlan: Plan;
+  email?: string; // Add email for OTP verification
 }
 
 export function PurchaseFlow({ isOpen, onClose, selectedPlan, allPlans }: PurchaseFlowProps) {
   const [currentStep, setCurrentStep] = useState<FlowStep>('details');
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+  const [userDetails, setUserDetails] = useState<PurchaseUserDetails | null>(null);
   const navigate = useNavigate();
 
-  const handleDetailsSubmit = (details: UserDetails) => {
+  const handleDetailsSubmit = (details: PurchaseUserDetails) => {
     setUserDetails(details);
     setCurrentStep('otp');
   };
@@ -96,9 +86,10 @@ export function PurchaseFlow({ isOpen, onClose, selectedPlan, allPlans }: Purcha
 
         {currentStep === 'otp' && userDetails && (
           <OTPVerification
-            email={userDetails.email}
+            email={userDetails.email || ''}
             onBack={handleBack}
             onVerified={handleOTPVerified}
+            context="signup"
           />
         )}
 
