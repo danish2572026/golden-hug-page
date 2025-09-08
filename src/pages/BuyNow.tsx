@@ -85,9 +85,7 @@ export default function BuyNow() {
       return;
     }
     
-    // Here you would typically navigate to checkout or open payment modal
     toast.success("Proceeding to checkout...");
-    // navigate('/checkout', { state: { selectedWatch, selectedPlan, quantity } });
   };
 
   return (
@@ -97,6 +95,7 @@ export default function BuyNow() {
         <meta name="description" content="Purchase your SeniorCare health monitoring smartwatch with advanced features including heart rate monitoring, fall detection, and emergency alerts. Choose from flexible service plans." />
         <meta name="keywords" content="senior smartwatch, health monitor, elderly care, fall detection, heart rate monitor, buy smartwatch" />
       </Helmet>
+      
       {/* Header */}
       <div className="bg-card/50 backdrop-blur-sm border-b border-border/50">
         <div className="container mx-auto px-6 py-4">
@@ -182,7 +181,7 @@ export default function BuyNow() {
               </CardContent>
             </Card>
 
-            {/* Plan Selection - Only show if watch is selected */}
+            {/* Plan Selection */}
             {selectedWatch && (
               <Card className="bg-card/80 backdrop-blur-sm border-border/50">
                 <CardHeader>
