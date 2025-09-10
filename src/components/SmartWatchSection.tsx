@@ -83,9 +83,7 @@ export function SmartWatchSection() {
         {/* Main Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Advanced <span className="text-primary">Smart Watch</span>
-            <br />
-            <span className="text-accent-foreground">Health Monitoring</span>
+            Advanced <span className="text-primary">Smart Watch</span> Health Monitoring with Complete <span className="text-emergency">Health Care & Emergency Support</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Comprehensive health tracking technology designed specifically for seniors, with seamless family connectivity and emergency response

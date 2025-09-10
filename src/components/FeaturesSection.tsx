@@ -77,9 +77,7 @@ export function FeaturesSection() {
         {/* Main Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Complete <span className="text-primary">Health Care</span>
-            <br />
-            & <span className="text-emergency">Emergency Support</span>
+            Advanced <span className="text-primary">Smart Watch</span> Health Monitoring with Complete <span className="text-emergency">Health Care & Emergency Support</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Advanced technology that keeps families connected and seniors protected with comprehensive health monitoring and emergency services
