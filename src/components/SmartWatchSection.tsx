@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
   Heart, 
@@ -9,38 +9,45 @@ import {
   Timer
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import watch from "@/assets/watch.jpg";
+import watchImage from "@/assets/senior-watch.jpg";
+import dashboardImage from "@/assets/health-dashboard.jpg";
 
 const watchFeatures = [
   {
     icon: Heart,
-    title: "Heart Rate",
-    description: "24/7 monitoring"
+    title: "Heart Rate Monitoring",
+    description: "Continuous 24/7 heart rate tracking with family notifications for any irregularities.",
+    color: "text-primary"
   },
   {
     icon: Droplets,
-    title: "Blood Pressure",
-    description: "Real-time tracking"
+    title: "Blood Pressure Tracking",
+    description: "Real-time blood pressure monitoring with automatic alerts to healthcare providers.",
+    color: "text-accent-foreground"
   },
   {
     icon: Activity,
-    title: "Activity Tracking",
-    description: "Steps & calories"
+    title: "Activity & Fitness",
+    description: "Daily steps, calories burned, and activity goals with progress sharing.",
+    color: "text-primary"
   },
   {
     icon: Moon,
-    title: "Sleep Analysis",
-    description: "Quality insights"
+    title: "Sleep Quality Analysis",
+    description: "Comprehensive sleep pattern tracking with health insights and recommendations.",
+    color: "text-accent-foreground"
   },
   {
     icon: AlertTriangle,
-    title: "Fall Detection",
-    description: "Auto emergency"
+    title: "Fall Detection & SOS",
+    description: "Automatic fall detection with instant emergency alerts and GPS location sharing.",
+    color: "text-emergency"
   },
   {
     icon: Timer,
-    title: "Medication",
-    description: "Smart reminders"
+    title: "Medication Reminders",
+    description: "Smart medication scheduling with family notifications for missed doses.",
+    color: "text-primary"
   }
 ];
 
@@ -53,60 +60,73 @@ export function SmartWatchSection() {
   };
 
   return (
-    <section className="py-16 bg-black relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black opacity-90"></div>
-      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+    <section className="relative py-20 bg-gradient-to-br from-background via-background to-secondary/5 overflow-hidden">
+      {/* Background Dashboard Image - Soft and Faded */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <img 
+          src={dashboardImage} 
+          alt="Health Dashboard Background"
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+      
+      {/* Foreground Watch Image - Corner Positioned */}
+      <div className="absolute bottom-8 left-8 lg:bottom-16 lg:left-16 z-10 opacity-20 lg:opacity-30">
+        <img 
+          src={watchImage} 
+          alt="SeniorCare Smart Watch"
+          className="w-32 h-32 lg:w-48 lg:h-48 object-contain drop-shadow-2xl"
+        />
+      </div>
 
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            Smart Watch <span className="text-primary">Features</span>
+      <div className="relative container mx-auto px-6 lg:px-8">
+        {/* Main Heading */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            Advanced <span className="text-primary">Smart Watch</span>
+            <br />
+            <span className="text-accent-foreground">Health Monitoring</span>
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Advanced health monitoring technology on your wrist
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Comprehensive health tracking technology designed specifically for seniors, with seamless family connectivity and emergency response
           </p>
         </div>
 
-
-        <div className="flex flex-col lg:flex-row lg:items-center gap-x-12 gap-y-8 max-h-[460px]">
-
-          {/* Left: Watch Image */}
-          <div className="flex-shrink-0 max-w-[320px] w-full mx-auto lg:mx-0">
-            <img 
-              src={watch} 
-              alt="Smart Watch" 
-              className="w-full h-auto object-contain max-h-[460px]"
-            />
-          </div>
-
-          {/* Right: Feature Cards Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 flex-1">
-            {watchFeatures.map((feature, index) => (
-              <Card key={index} className="bg-gray-900/50 border-gray-700 hover:border-primary/50 transition-all duration-300 hover:scale-105 max-h-[140px]">
-                <CardContent className="p-4 text-center flex flex-col justify-center h-full">
-                  <div className="mb-3 flex justify-center">
-                    <div className="p-3 bg-primary/20 rounded-full">
-                      <feature.icon className="h-6 w-6 text-primary" />
-                    </div>
-                  </div>
-                  <h3 className="text-sm font-semibold text-white mb-1">{feature.title}</h3>
-                  <p className="text-xs text-gray-400">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {watchFeatures.map((feature, index) => (
+            <Card 
+              key={index} 
+              className="group border-none shadow-soft bg-card/80 backdrop-blur-sm hover:shadow-hero transition-all duration-500 hover:-translate-y-2 rounded-2xl overflow-hidden"
+            >
+              <CardHeader className="text-center pb-4">
+                <div className="mx-auto p-6 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-3xl w-20 h-20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <feature.icon className={`h-10 w-10 ${feature.color} group-hover:scale-110 transition-transform duration-300`} />
+                </div>
+                <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                  {feature.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-muted-foreground leading-relaxed">
+                  {feature.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-        <div className="text-center mt-8">
-          <p className="text-gray-400 text-sm mb-6">
-            All features included with your SeniorCare watch
+        {/* Call to Action */}
+        <div className="text-center">
+          <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
+            Experience peace of mind with comprehensive health monitoring and instant emergency response - all on your wrist
           </p>
           <Button 
             onClick={handleBuyNow}
             size="lg" 
-            className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
+            className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold px-10 py-4 rounded-2xl shadow-hero hover:shadow-hero-hover transition-all duration-500 hover:scale-105 text-lg"
           >
-            Buy Now
+            Get Your Smart Watch
           </Button>
         </div>
       </div>
