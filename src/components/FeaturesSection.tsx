@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { 
   Heart, 
   Phone, 
@@ -12,142 +11,123 @@ import {
   AlertTriangle
 } from "lucide-react";
 import dashboardImage from "@/assets/health-dashboard.jpg";
+import watchImage from "@/assets/senior-watch.jpg";
 
-const healthFeatures = [
+const allFeatures = [
   {
     icon: Heart,
     title: "Real-Time Health Monitoring",
-    description: "Continuous tracking of heart rate, blood pressure, activity levels, and more with instant family access.",
+    description: "Continuous heart rate, blood pressure, and activity tracking with instant family notifications.",
     color: "text-primary"
   },
   {
     icon: Smartphone,
     title: "Family Dashboard",
-    description: "Loved ones access real-time health data, medication reminders, and daily activity summaries.",
+    description: "Real-time health data access, medication reminders, and daily activity summaries for loved ones.",
     color: "text-accent-foreground"
   },
   {
     icon: AlertTriangle,
     title: "Emergency Button",
-    description: "One-touch emergency activation sends instant alerts to family and emergency services.",
+    description: "One-touch activation sends instant alerts to family and emergency services with GPS location.",
     color: "text-emergency"
-  }
-];
-
-const emergencyServices = [
+  },
   {
     icon: Phone,
     title: "Hospital Coordination",
-    description: "Direct communication with nearby hospitals, medical history sharing, and appointment scheduling.",
+    description: "Direct hospital communication, medical history sharing, and appointment scheduling.",
     color: "text-primary"
   },
   {
     icon: Ambulance,
     title: "Ambulance Services",
-    description: "Immediate ambulance dispatch with pre-shared medical information and GPS location.",
+    description: "Immediate dispatch with pre-shared medical information and precise GPS coordinates.",
     color: "text-emergency"
   },
   {
     icon: Building2,
     title: "Insurance Support",
-    description: "Direct insurance claim filing, pre-authorization handling, and coverage verification.",
+    description: "Automated claim filing, pre-authorization handling, and coverage verification.",
     color: "text-accent-foreground"
   }
 ];
 
 export function FeaturesSection() {
   return (
-    <section className="py-20 bg-muted/50">
-      <div className="container mx-auto px-6 lg:px-8">
-        
-        {/* Health Monitoring Features */}
+    <section className="relative py-20 bg-gradient-to-br from-background via-background to-secondary/5 overflow-hidden">
+      {/* Background Dashboard Image - Soft and Faded */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <img 
+          src={dashboardImage} 
+          alt="Health Dashboard Background"
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+      
+      {/* Foreground Watch Image - Corner Positioned */}
+      <div className="absolute bottom-8 right-8 lg:bottom-16 lg:right-16 z-10 opacity-20 lg:opacity-30">
+        <img 
+          src={watchImage} 
+          alt="SeniorCare Smart Watch"
+          className="w-32 h-32 lg:w-48 lg:h-48 object-contain drop-shadow-2xl"
+        />
+      </div>
+
+      <div className="relative container mx-auto px-6 lg:px-8">
+        {/* Main Heading */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-            Complete Health <span className="text-primary">Monitoring</span>
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            Complete <span className="text-primary">Health Care</span>
+            <br />
+            & <span className="text-emergency">Emergency Support</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Advanced technology that keeps families connected and seniors safe
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Advanced technology that keeps families connected and seniors protected with comprehensive health monitoring and emergency services
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Dashboard Image */}
-          <div className="order-2 lg:order-1">
-            <div className="relative rounded-2xl overflow-hidden shadow-hero">
-              <img 
-                src={dashboardImage} 
-                alt="SeniorCare Family Health Dashboard"
-                className="w-full h-80 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
-            </div>
-          </div>
-
-          {/* Health Features */}
-          <div className="order-1 lg:order-2 space-y-6">
-            {healthFeatures.map((feature, index) => (
-              <Card key={index} className="border-none shadow-soft bg-card hover:shadow-card transition-shadow duration-300">
-                <CardHeader className="pb-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-muted rounded-lg">
-                      <feature.icon className={`h-6 w-6 ${feature.color}`} />
-                    </div>
-                    <CardTitle className="text-lg text-foreground">{feature.title}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Emergency Services */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-            Comprehensive <span className="text-emergency">Emergency Services</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Professional support when it matters most - we handle everything
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {emergencyServices.map((service, index) => (
-            <Card key={index} className="text-center border-none shadow-card bg-card hover:shadow-hero transition-all duration-300 hover:-translate-y-1">
-              <CardHeader>
-                <div className="mx-auto p-4 bg-gradient-feature rounded-2xl w-16 h-16 flex items-center justify-center mb-4">
-                  <service.icon className={`h-8 w-8 ${service.color}`} />
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {allFeatures.map((feature, index) => (
+            <Card 
+              key={index} 
+              className="group border-none shadow-soft bg-card/80 backdrop-blur-sm hover:shadow-hero transition-all duration-500 hover:-translate-y-2 rounded-2xl overflow-hidden"
+            >
+              <CardHeader className="text-center pb-4">
+                <div className="mx-auto p-6 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-3xl w-20 h-20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <feature.icon className={`h-10 w-10 ${feature.color} group-hover:scale-110 transition-transform duration-300`} />
                 </div>
-                <CardTitle className="text-xl">{service.title}</CardTitle>
+                <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                  {feature.title}
+                </CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-6">{service.description}</p>
-                <Button variant="outline" className="w-full">
-                  Learn More
-                </Button>
+              <CardContent className="text-center">
+                <p className="text-muted-foreground leading-relaxed">
+                  {feature.description}
+                </p>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        {/* Emergency Response Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+        {/* Trust Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20">
           {[
             { number: "< 2min", label: "Emergency Response", icon: Clock },
             { number: "24/7", label: "Support Available", icon: Phone },
             { number: "50,000+", label: "Families Protected", icon: Users },
             { number: "99.9%", label: "Uptime Guarantee", icon: Shield }
           ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="flex justify-center mb-3">
-                <stat.icon className="h-8 w-8 text-primary" />
+            <div key={index} className="text-center group">
+              <div className="flex justify-center mb-4">
+                <div className="p-4 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+                  <stat.icon className="h-8 w-8 text-primary" />
+                </div>
               </div>
-              <div className="text-2xl lg:text-3xl font-bold text-foreground mb-1">
+              <div className="text-3xl lg:text-4xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
                 {stat.number}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm font-medium text-muted-foreground">
                 {stat.label}
               </div>
             </div>
