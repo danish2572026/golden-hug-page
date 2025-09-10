@@ -1,7 +1,6 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { HeroSection } from "@/components/HeroSection";
 import { FeaturesSection } from "@/components/FeaturesSection";
-import { SmartWatchSection } from "@/components/SmartWatchSection";
 import { PlansSection } from "@/components/PlansSection";
 import { WhyUsSection } from "@/components/WhyUsSection";
 import { FAQSection } from "@/components/FAQSection";
@@ -200,7 +199,6 @@ const Index = () => {
           onGetStarted={handleGetStarted}
           onOrderStatus={handleOrderStatus}
         />
-        <SmartWatchSection />
         <div id="features">
           <FeaturesSection />
         </div>
